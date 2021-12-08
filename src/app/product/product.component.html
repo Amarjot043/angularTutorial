@@ -1,0 +1,62 @@
+<h1> Product List Displayed</h1>
+<div class='card'>
+    <div class='card-header'>
+      {{pageTitle}}
+    </div>
+</div>
+
+
+
+<div class="bg-info text-white p-2"> 
+Selected Product : {{selectedProduct || 'None '}}
+</div>
+
+
+<div class='table-responsive'>
+    <table class='table'
+    *ngIf='getProducts() && products.length >0'     >
+           
+      <thead>
+          <tr>
+              <th></th>
+              <th> <button class="btn btn-primary"  (click) ='toggleImage()'>  {{showImage ? 'Hide' : 'Show' }}  Image </button></th>
+            <th>Product Name</th>
+            <th>Code</th>
+            <th>Available</th>
+            <th>Price</th>
+            <th>5 Star Rating</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor='let item of getProducts() ; let i=index ' [class.bg-info] = "getSelected(item)"  >
+              <td (mouseover) ="selectedProduct = item.productName">{{i+1}}</td>
+              <td> 
+                  <img  *ngIf='showImage'
+                  [src] ='item.imageUrl'
+                  [title]='item.productName'
+                  [style.width.px]='imageWidth'
+                  [style.margin.px]='imageMargin'
+                  
+             >
+
+              </td>
+              <td>{{item.productName |uppercase}}</td>
+              <td>{{item.productCode | lowercase}}</td>
+              <td>{{item.releaseDate |  date:'shortDate' }}</td>
+              <td>{{item.price | currency:'USD':'symbol' : '1.2-2' }}</td>
+              <td>{{item.starRating}}</td>
+          </tr>
+
+      </tbody>
+     </table>
+
+     <div class = "form-group m-2">
+        <label>Product Name : </label>
+      <input class="form-control"   [(ngModel)]="selectedProduct" />
+     </div>
+
+     <div class = "form-group m-2">
+        <label>Product Name : </label>
+      <input class="form-control"   [(ngModel)]="selectedProduct" />
+     </div>
+
